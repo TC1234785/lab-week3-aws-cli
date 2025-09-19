@@ -16,8 +16,12 @@ bucket_name=$1
 if aws s3api head-bucket --bucket "$bucket_name" 2>/dev/null; then
     echo "Bucket $bucket_name already exists."
 else
-  # Removed echo $bucket_name
-  # added: 
-  aws s3 mb s3://$bucket_name
+  #high level
+        #aws s3 mb s3://$bucket_name
+  #Based on documentation
+    aws s3api create-bucket \
+        --bucket "$bucket_name" \
+        --region us-west-2 \
+        --create-bucket-configuration LocationConstraint=us-west-2
 fi
 ```
